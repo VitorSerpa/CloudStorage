@@ -1,0 +1,28 @@
+{
+  "name": "cloudstorage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VitorSerpa/CloudStorage.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VitorSerpa/CloudStorage/issues"
+  },
+  "homepage": "https://github.com/VitorSerpa/CloudStorage#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "multer": "^2.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
