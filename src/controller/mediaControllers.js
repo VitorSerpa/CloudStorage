@@ -13,3 +13,6 @@ exports.uploadMedia = (req, res) => {
         return res.status(500).json({ message: "Erro ao enviar arquivo" });
     }
 };
+
+exports.getMedia = (req, res) =>{
+}
