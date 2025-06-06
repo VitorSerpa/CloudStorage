@@ -24,34 +24,49 @@ const upload = multer({ storage: storage });
 
 router.post("/upload", upload.single("media"), mediaController.uploadMedia);
 
-
-router.get("/upload/:pesquisa", (req, res) => {
+router.get("/getMedias/:pesquisa", (req, res) => {
     const palavraPesquisa = req.params.pesquisa
-    let jsonFiles = {status : 404,arquivos: []}
+    let jsonFiles = {arquivos: []}
     fs.readdir(uploadDir, (err, files) =>{
         files.forEach((element) => {
             if(element.startsWith(palavraPesquisa))
                 jsonFiles["arquivos"].push(element)
         })
-        if(err){
+        if(err)
             return res.status(500).send("Erro ao listar arquivos")
+        
+        if (files.length < 1){
+            return res.json({arquivos:"Nenhum arquivo encontrado"})
         }
-        if(jsonFiles["arquivos"].length > 0)
-            jsonFiles["status"] = 200
-        return res.json(jsonFiles)
+        return res.status(200).json(jsonFiles)
     })
 
 });
 
-router.get("/upload", (req, res) => {
+router.get("/download/:filename", (req, res) => {
+    const filename = req.params.filename;
+    const filePath = path.join(uploadDir, filename);
+
+    if (fs.existsSync(filePath)) {
+        res.download(filePath); 
+    } else {
+        res.status(404).send("Arquivo não encontrado");
+    }
+});
+
+router.get("/getMedias", (req, res) => {
     fs.readdir(uploadDir, (err, files) =>{
         if(err){
             return res.status(500).send("Erro ao listar arquivos")
         }
-        res.json({arquivos:files})
+        if(files.length < 1)
+            return res.json({arquivos:"Nenhum arquivo encontrado"})
+        return res.json({arquivos:files})
     })
 });
 
+router.delete("/deleteMedia", (req, res) => {
 
+})
 
 module.exports = router;

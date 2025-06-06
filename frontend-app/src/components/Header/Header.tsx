@@ -1,11 +1,12 @@
 import React from "react";
 import { FC } from "react";
+import styles from "./Header.module.css"
 
 const Header: FC = () =>{
     return(
-        <div>
+        <header className={styles.header}>
             <h1>Importação de arquivos</h1>
-        </div>
+        </header>
     )
 }
 
