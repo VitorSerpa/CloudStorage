@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+      - ./backend/upload:/app/upload 
+    restart: always
+    networks:
+      - app-network
+
+  frontend:
+    build: ./frontend-app 
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend-app:/app 
+    restart: always
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
