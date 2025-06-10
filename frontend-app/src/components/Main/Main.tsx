@@ -38,6 +38,10 @@ const Main: FC = () => {
             .catch((err) => console.error(err));
     };
 
+    const handleDeleteInput = () => {
+        fetch("")
+    }
+
     useEffect(() => {
         fetchArquivos();
     }, []);
@@ -46,28 +50,31 @@ const Main: FC = () => {
         <div className={styles.mainDiv}>
             <div className={styles.mainContainer}>
                 <form onSubmit={handleFormSubmit}>
-                    <input onChange={handleInputChange} type="file" /> <br />
-                    <br />
+                    <input onChange={handleInputChange} type="file" /> 
                     <button type="submit">Enviar</button>
                 </form>
 
-                <div>
+                <div className={styles.searchDiv}>
                     <input
+                        className={styles.searchInput}
                         type="text"
                         onChange={(e) => {
                             fetchArquivosOnChange(e.target.value);
                         }}
                         placeholder="Pesquisar..."
                     />
-                    <ul>
+                    <ul className={styles.ulList}>
                         {arquivosDisponiveis &&
                             arquivosDisponiveis.length > 0 &&
                             arquivosDisponiveis.map((file, index) => (
-                                <li key={index}>
-                                    <a href={`http://localhost:5000/media/download/${file}`} download>
-                                        {file}
-                                    </a>
-                                </li>
+                                <div className={styles.listDiv}>
+                                    <li key={index} className={styles.ulItem}>
+                                        <a href={`http://localhost:5000/media/download/${file}`} download>
+                                            {file}
+                                        </a>
+                                        <button  className={styles.deleteButton}>Deletar</button>
+                                    </li>
+                                </div>
                             ))}
                     </ul>
                 </div>
