@@ -76,7 +76,7 @@ exports.getMedias = (req, res) => {
             return res.status(500).send("Erro ao listar arquivos")
         }
         if(files && files.length < 1)
-            return res.json({arquivos:"Nenhum arquivoencontrado"})
+            return res.json({arquivos:"Nenhum arquivo encontrado"})
         return res.json({arquivos:files})
     })
 }

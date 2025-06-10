@@ -38,8 +38,17 @@ const Main: FC = () => {
             .catch((err) => console.error(err));
     };
 
-    const handleDeleteInput = () => {
-        fetch("")
+    const handleDeleteInput = (file: string) => {
+        fetch("http://localhost:5000/media/deleteMedia/" + file, {
+            method:"DELETE"
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data)
+            fetchArquivos()
+        })
+        .catch((err) => console.error(err))
+
     }
 
     useEffect(() => {
@@ -64,15 +73,17 @@ const Main: FC = () => {
                         placeholder="Pesquisar..."
                     />
                     <ul className={styles.ulList}>
-                        {arquivosDisponiveis &&
-                            arquivosDisponiveis.length > 0 &&
+                        {arquivosDisponiveis && arquivosDisponiveis.length > 0 &&
                             arquivosDisponiveis.map((file, index) => (
                                 <div className={styles.listDiv}>
                                     <li key={index} className={styles.ulItem}>
+                                        {(file.endsWith("png") || file.endsWith("jpg")) && (
+                                            <img className={styles.imgIcon} src={`http://localhost:5000/media/download/${file}`} alt=""/>
+                                        )}
                                         <a href={`http://localhost:5000/media/download/${file}`} download>
                                             {file}
                                         </a>
-                                        <button  className={styles.deleteButton}>Deletar</button>
+                                        <button onClick={() => handleDeleteInput(file)} className={styles.deleteButton}>Deletar</button>
                                     </li>
                                 </div>
                             ))}

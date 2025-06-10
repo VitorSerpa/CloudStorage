@@ -20,6 +20,11 @@ button{
     border: 1px solid white;
 }
 
+.imgIcon{
+    width: 30px;
+    margin: 0 10px;
+}
+
 .deleteButton{
     border-radius: 5px;
     color: white;
